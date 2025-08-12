@@ -80,11 +80,35 @@ void change(){
             }
     }
 }
+int search(){
+    int index,valueToSearch;
+    // printf("Enter an index and a newvalue");
+    // scanf("%d%d",&index,&newvalue);
+    printf("Enter the value to be searched:");
+    scanf("%d",&valueToSearch);
+    if(isEmpty())
+        printf("Circular Queue is Empty.");
+    else{
+        int i = front;
+        if(front <= rear) {
+            for(;i!=rear; i=(i+1)%MAX)
+                if(CQ[i] == valueToSearch)
+                    return i+front-1; // return the index
+        }
+        else {
+            for(;i!=rear; i=(i+1)%MAX)
+                if(CQ[i] == valueToSearch)
+                    return (i+front-1)%MAX;
+        }
+    }
+    printf("Value not found in Circular Queue.");
+    return -1; // Return -1 to indicate that the value is not found
+}
 void main(){
     int ch;
     while(1){
         printf("\n\nCircular Queue Operations:");
-        printf("\n1. Insert\n2. Delete\n3. Peek\n4. Change \n5. Display\n6. isFull\n7. isEmpty\n8. Exit");
+        printf("\n1. Insert\n2. Delete\n3. Peek\n4. Change \n5. Search \n6. Display\n7. isFull\n8. isEmpty\n9. Exit");
         printf("\nEnter Your Choice:");
         scanf("%d",&ch);
         switch(ch){
@@ -92,18 +116,19 @@ void main(){
             case 2: del();  break;
             case 3: peek(); break;
             case 4: change();   break;
-            case 5: display();  break;
-            case 6: if(isFull())
+            case 5: search();   break;
+            case 6: display();  break;
+            case 7: if(isFull())
                         printf("Yes, Circular Queue is Full.");
                     else
                         printf("No, Circular Queue is not Full.");
                     break;
-            case 7: if(isEmpty())
+            case 8: if(isEmpty())
                     printf("Yes, Circular Queue is Empty.");
                     else
                         printf("No, Circular Queue is not Empty.");
                     break;
-            case 8: exit(0);
+            case 9: exit(0);
             default: printf("Invalid Choice..");
         }
     }
